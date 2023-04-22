@@ -1,0 +1,17 @@
+
+provisoining an ec2 instance using Terraform and attatching; kepair,security group.
+
+provider "aws" {
+  region = "eu-west-2"
+}
+resource "aws_instance" "app" {
+  ami           = "ami-03542b5588cd0e6b3"
+  instance_type = "t2.micro"
+  key_name = "nginx"
+  vpc_security_group_ids = [ "sg-0539a0587f93a73c1" ]
+  count         = 2
+  tags = {
+    Name        = "dbserver"
+    Environment = "prod"
+  }
+}
